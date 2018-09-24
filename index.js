@@ -1,11 +1,14 @@
 var httpServer = require("http");
 var urlServer = require("url");
+var queryString = require("querystring");
 
 var server = httpServer.createServer(function(req, res){
   var page = urlServer.parse(req.url).pathname;
   var parametre = queryString.parse(urlServer.parse(req.url).query);
   var entete = 200;
   var defaultMessage = "Hello";
+
+  console.log(parametre);
 
   if(page !== '/lien1' && page !== '/lien2'){
     entete = 404;
