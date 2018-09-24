@@ -3,14 +3,15 @@ var urlServer = require("url");
 
 var server = httpServer.createServer(function(req, res){
   var page = urlServer.parse(req.url).pathname;
+  var parametre = queryString.parse(urlServer.parse(req.url).query);
+  var entete = 200;
+  var defaultMessage = "Hello";
 
   if(page !== '/lien1' && page !== '/lien2'){
-    // if(page == "/lien1" ){
-    res.writeHead(404);
-    res.end('Erreur 404!!');
-    return;
+    entete = 404;
+    defaultMessage = 'Erreur 404!!';
   }
-  res.writeHead(200, {"Content-Type":"text/html"});
+  res.writeHead(entete, {"Content-Type":"text/html"});
 
   let html = '<!DOCTYPE html>';
   html += '<html>';
@@ -20,6 +21,7 @@ var server = httpServer.createServer(function(req, res){
   html += '</head>';
   html += '<body>';
   html += '<h1>'+page+'</h1>';
+  html += '<h2>'+defaultMessage+'</h2>';
   html += '<ul>';
   html += '<li><a href="http://localhost:9999/lien1">Lien1</a></li>';
   html += '<li><a href="http://localhost:9999/lien2">Lien2</a></li>';
